@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"image/color"
 	"main/internal/domain/entity"
-	"main/internal/domain/service"
+	"main/internal/domain/usecase"
+	"main/internal/service"
+	"main/resource"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/yanun0323/ebitenpkg"
@@ -12,35 +14,56 @@ import (
 
 type Game struct {
 	background ebitenpkg.Image
-	battle     service.Stage
+	battle     usecase.Stage
 }
 
 func NewGame() *Game {
-	backgroundImg := ebiten.NewImage(1366, 768)
-	backgroundImg.Fill(color.White)
-	background := ebitenpkg.NewImage(backgroundImg).Align(ebitenpkg.AlignTopLeading)
+	background := ebitenpkg.NewImage(resource.NewImage(1366, 768, color.White)).Align(ebitenpkg.AlignTopLeading)
+
+	playerPokemon := entity.NewPokemon(entity.PokemonOption{
+		ID:               "025",
+		Level:            10,
+		AbilityIdx:       0,
+		HiddenAbility:    false,
+		Gender:           entity.Male,
+		Nature:           entity.NatureAdamant,
+		IndividualValues: entity.StatsRandomIV(),
+	})
+
+	opponentPokemon := entity.NewPokemon(entity.PokemonOption{
+		ID:               "025",
+		Level:            10,
+		AbilityIdx:       1,
+		HiddenAbility:    false,
+		Gender:           entity.Female,
+		Nature:           entity.NatureAdamant,
+		IndividualValues: entity.StatsRandomIV(),
+	})
 
 	return &Game{
 		background: background,
+		battle:     service.NewBattleStage(nil, nil, []*entity.Pokemon{playerPokemon}, []*entity.Pokemon{opponentPokemon}),
 	}
 }
 
 func (g *Game) Start() {
-	cfg := entity.PokemonConfigTable[25]
+	cfg := entity.PokemonConfigTable["025"]
 	fmt.Printf("%+v\n", cfg)
 }
 
 func (g *Game) Update() error {
 	ebitenpkg.GameUpdate()
+	g.battle.Update()
+
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
+	g.background.Draw(screen)
+
 	if g.battle != nil {
 		g.battle.Draw(screen)
 	}
-
-	g.background.Draw(screen)
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {

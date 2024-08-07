@@ -32,7 +32,7 @@ type PokemonConfig struct {
 
 	Experience int `yaml:"experience"`
 
-	Evolution map[EvolutionRule]int `yaml:"evolution"`
+	Evolution map[EvolutionRule]ID `yaml:"evolution"`
 
 	SkillSheets map[int][]string `yaml:"skill_sheets" mapstructure:"skill_sheets"`
 	LearnSheets []string         `yaml:"learn_sheets,flow" mapstructure:"learn_sheets"`

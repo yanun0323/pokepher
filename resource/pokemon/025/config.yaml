@@ -1,4 +1,4 @@
-id: 25
+id: '025'
 enable: true
 name: pikachu
 description:
@@ -30,7 +30,7 @@ base:
 experience: 120
 
 evolution:
-  30: 025
+  30: '025'
 
 skill_sheets:
   0:

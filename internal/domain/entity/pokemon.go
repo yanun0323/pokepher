@@ -10,9 +10,9 @@ type Pokemon struct {
 	Type             [2]Type
 	Ability          Ability
 	Gender           Gender
-	Personality      Nature
+	Nature           Nature
 	Friendly         int
-	Evolution        map[EvolutionRule]int
+	Evolution        map[EvolutionRule]ID
 	Base             Stats
 	EffortValue      Stats
 	IndividualValues Stats
@@ -30,7 +30,7 @@ type Pokemon struct {
 }
 
 func NewPokemon(opt PokemonOption) *Pokemon {
-	cfg, ok := PokemonConfigTable[opt.ID.Int()]
+	cfg, ok := PokemonConfigTable[opt.ID.String()]
 	if !ok {
 		return nil
 	}
@@ -45,7 +45,7 @@ func NewPokemon(opt PokemonOption) *Pokemon {
 		Type:             cfg.Type,
 		Ability:          cfg.PickAbility(opt.AbilityIdx, opt.HiddenAbility),
 		Gender:           opt.Gender,
-		Personality:      opt.Personality,
+		Nature:           opt.Nature,
 		Friendly:         cfg.Breeding.HatchTime,
 		Evolution:        cfg.Evolution,
 		Base:             cfg.Base,
@@ -67,6 +67,6 @@ type PokemonOption struct {
 	AbilityIdx       int
 	HiddenAbility    bool
 	Gender           Gender
-	Personality      Nature
+	Nature           Nature
 	IndividualValues Stats
 }

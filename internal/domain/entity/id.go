@@ -1,7 +1,7 @@
 package entity
 
-type ID int
+type ID string
 
-func (id ID) Int() int {
-	return int(id)
+func (id ID) String() string {
+	return string(id)
 }
