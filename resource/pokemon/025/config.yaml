@@ -1,0 +1,41 @@
+id: 25
+enable: true
+name: pikachu
+description:
+height: 0.4
+weight: 6
+type:
+  - electric
+  -
+ability:
+  abilities:
+    - static
+  hidden_abilities:
+    - lightning_rod
+gender_ratio: 0.5
+cache_rate: 190
+ev: 2
+breeding:
+  egg_group:
+    - field
+    - fairy
+  hatch_time: 10
+base:
+  hp: 35
+  attack: 55
+  defense: 40
+  special_attack: 50
+  special_defense: 50
+  speed: 90
+experience: 120
+
+evolution:
+  30: 025
+
+skill_sheets:
+  0:
+    - thunder_shock
+    - thunderbolt
+
+learn_sheets:
+  - surf
