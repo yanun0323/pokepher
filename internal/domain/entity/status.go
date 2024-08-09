@@ -3,5 +3,9 @@ package entity
 type Status string
 
 const (
-	StatusNone Status = "none"
+	StatusNone Status = "None"
 )
+
+func (s Status) String() string {
+	return string(s)
+}

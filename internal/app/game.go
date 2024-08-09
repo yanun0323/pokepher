@@ -3,10 +3,10 @@ package app
 import (
 	"fmt"
 	"image/color"
+	"main/internal/domain"
 	"main/internal/domain/entity"
 	"main/internal/domain/usecase"
 	"main/internal/service"
-	"main/resource"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/yanun0323/ebitenpkg"
@@ -18,7 +18,8 @@ type Game struct {
 }
 
 func NewGame() *Game {
-	background := ebitenpkg.NewImage(resource.NewImage(1366, 768, color.White)).Align(ebitenpkg.AlignTopLeading)
+	background := ebitenpkg.NewRectangle(domain.DefaultWindowsWidth(), domain.DefaultWindowsHeight(), color.White).
+		Align(ebitenpkg.AlignTopLeading)
 
 	playerPokemon := entity.NewPokemon(entity.PokemonOption{
 		ID:               "025",
@@ -67,5 +68,5 @@ func (g *Game) Draw(screen *ebiten.Image) {
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
-	return 1366, 768
+	return domain.DefaultWindowsBounds()
 }

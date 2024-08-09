@@ -13,6 +13,7 @@ func main() {
 	game.Start()
 
 	ebitenpkg.SetDefaultFont(resource.Font.Headline)
+	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
 
 	if err := ebiten.RunGame(game); err != nil {
 		panic(err)

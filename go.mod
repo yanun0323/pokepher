@@ -5,7 +5,7 @@ go 1.22.3
 require (
 	github.com/hajimehoshi/ebiten/v2 v2.7.8
 	github.com/spf13/viper v1.13.0
-	github.com/yanun0323/ebitenpkg v0.2.6
+	github.com/yanun0323/ebitenpkg v0.5.5
 	github.com/yanun0323/pkg v1.5.1
 
 )

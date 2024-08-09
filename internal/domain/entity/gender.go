@@ -4,6 +4,7 @@ import (
 	"main/resource"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/yanun0323/ebitenpkg"
 )
 
 type Gender int
@@ -22,6 +23,6 @@ func (g Gender) Image() *ebiten.Image {
 		return resource.Global.SymbolFemale
 	default:
 		b := resource.Global.SymbolMale.Bounds()
-		return resource.NewImage(b.Dx(), b.Dy())
+		return ebitenpkg.NewEbitenImage(b.Dx(), b.Dy())
 	}
 }

@@ -194,8 +194,8 @@ github.com/stretchr/testify v1.8.0 h1:pSgiaMZlXftHpm5L7V1+rVB+AZJydKsMxsQBIJw4PK
 github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
 github.com/subosito/gotenv v1.4.1 h1:jyEFiXpy21Wm81FBN71l9VoMMV8H8jG+qIK3GCpY6Qs=
 github.com/subosito/gotenv v1.4.1/go.mod h1:ayKnFf/c6rvx/2iiLrJUk1e6plDbT3edrFNGqEflhK0=
-github.com/yanun0323/ebitenpkg v0.2.6 h1:5FH3/rX89qEbNJaN8RTCOnaA/AvPt+mIngUNA0hv6Y8=
-github.com/yanun0323/ebitenpkg v0.2.6/go.mod h1:XTCIBHTRPINBp3bWV5rR7IuUAIIQZ/QhxDT/a7HtAxg=
+github.com/yanun0323/ebitenpkg v0.5.5 h1:7WkCLUDcqdHH887WToIfUXtlJVePQWsoe8JzsdL9Pms=
+github.com/yanun0323/ebitenpkg v0.5.5/go.mod h1:1Gt7qFgPrJ/55hS2mpISy5KjMnl0qSDOkxDVgpPJi24=
 github.com/yanun0323/pkg v1.5.1 h1:npAIXxxyaFjPjsKsLj/oDNnoo1ewI3fo57IgPKc+v6s=
 github.com/yanun0323/pkg v1.5.1/go.mod h1:Fp7W/+EfDhEWmJtyPHKdBqOYeOLeQL2PYoOc91KGL/g=
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=

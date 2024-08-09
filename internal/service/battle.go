@@ -1,6 +1,7 @@
 package service
 
 import (
+	"main/internal/domain"
 	"main/internal/domain/entity"
 	"main/internal/domain/usecase"
 	"main/internal/service/component"
@@ -22,10 +23,9 @@ const (
 )
 
 type battle struct {
-	GameTime int
-	Stage    battleStage
-
+	GameTime    int
 	BattleStage *utils.Value[battleStage]
+	TextBox     ebitenpkg.Text
 
 	Player   *entity.Character
 	Opponent *entity.Character
@@ -34,19 +34,25 @@ type battle struct {
 	OpponentPokemon []*entity.Pokemon
 
 	PlayerPokemonImage          ebitenpkg.Image
-	PlayerPokemonBattleStatusUI usecase.View
+	PlayerPokemonBattleStatusUI ebitenpkg.Image
 
 	OpponentPokemonImage          ebitenpkg.Image
-	OpponentPokemonBattleStatusUI usecase.View
+	OpponentPokemonBattleStatusUI ebitenpkg.Image
 }
 
 func NewBattleStage(Player, Opponent *entity.Character, PlayerPokemon, OpponentPokemon []*entity.Pokemon) usecase.Stage {
+	wWidth, wHeight := domain.DefaultWindowsBounds()
+	textBoxHeight := 200
 	battle := &battle{
 		GameTime:        ebitenpkg.CurrentGameTime(),
 		BattleStage:     utils.NewValue(_battleStageEntry),
 		PlayerPokemon:   PlayerPokemon,
 		OpponentPokemon: OpponentPokemon,
+		TextBox:         component.NewTextBox("Hello World", wWidth, textBoxHeight, 0, float64(wHeight-textBoxHeight)),
 	}
+
+	battleStatusUIWidth := 600
+	battleStatusUIHeight := 200
 
 	if len(PlayerPokemon) != 0 {
 		img, err := resource.LoadPokemonImage(PlayerPokemon[0].ID.String())
@@ -59,13 +65,17 @@ func NewBattleStage(Player, Opponent *entity.Character, PlayerPokemon, OpponentP
 					SpriteWidthCount:  8,
 					SpriteHeightCount: 8,
 					SpriteHandler: func(fps, timestamp int, direction ebitenpkg.Direction) (indexX int, indexY int, scaleX int, scaleY int) {
-						index := ((timestamp / 6) + 20) % 60
+						index := (timestamp / 6) % 60
 						return index % 8, index / 8, 1, 1
 					},
-				})
+				}).
+				Move(250, 950).
+				Scale(6, 6)
 		}
 
-		battle.PlayerPokemonBattleStatusUI = component.NewPokemonBattleStatusUI(PlayerPokemon[0])
+		battle.PlayerPokemonBattleStatusUI = component.NewPokemonBattleStatusUI(PlayerPokemon[0], battleStatusUIWidth, battleStatusUIHeight, true, func(i ebitenpkg.Image) {
+			i.Move(float64(domain.DefaultWindowsWidth())-10, 550)
+		})
 	}
 
 	if len(OpponentPokemon) != 0 {
@@ -82,10 +92,14 @@ func NewBattleStage(Player, Opponent *entity.Character, PlayerPokemon, OpponentP
 						index := ((timestamp / 6) + 20) % 60
 						return index % 8, index / 8, 1, 1
 					},
-				})
+				}).
+				Move(1000, 500).
+				Scale(4, 4)
 		}
 
-		// battle.OpponentPokemonBattleStatusUI = component.NewPokemonBattleStatusUI(OpponentPokemon[0])
+		battle.OpponentPokemonBattleStatusUI = component.NewPokemonBattleStatusUI(OpponentPokemon[0], battleStatusUIWidth, battleStatusUIHeight, false, func(i ebitenpkg.Image) {
+			i.Move(float64(battleStatusUIWidth)+10, 10)
+		})
 	}
 
 	return battle
@@ -115,4 +129,6 @@ func (b *battle) Draw(screen *ebiten.Image) {
 	if b.OpponentPokemonBattleStatusUI != nil {
 		b.OpponentPokemonBattleStatusUI.Draw(screen)
 	}
+
+	b.TextBox.Draw(screen)
 }
